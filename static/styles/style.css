@@ -5,6 +5,7 @@
 
 body {
 	font-family: poppins;
+	height: 100vh;
 }
 
 /* Mobile design */
@@ -13,7 +14,7 @@ body {
 .login-container {
 	position: relative;
 	overflow: hidden;
-	height: 100vh;
+	height: 100%;
 }
 
 .background-image {
