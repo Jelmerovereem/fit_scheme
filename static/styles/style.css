@@ -18,6 +18,16 @@ main {
 	padding: 10px;
 }
 
+.btn {
+	color: white;
+	background: #4285f4;
+	padding: 10px 20px;
+	text-decoration: none;
+	display: inline-flex;
+	margin-bottom: 10px;
+	align-items: center;
+}
+
 /* Mobile design */
 
 /* Login & register page */
@@ -132,14 +142,26 @@ main {
 	color: red;
 }
 
-.login.btn {
-	color: white;
-	background: #4285f4;
-	padding: 10px 20px;
-	text-decoration: none;
-	display: inline-block;
-	margin-bottom: 10px;
+.boxLoading {
+	border: 5px solid #f3f3f3;
+ 	border-radius: 50%;
+ 	border-top: 5px solid #a8a8a8;
+  	width: 20px;
+  	height: 20px;
+  	-webkit-animation: spin .5s linear infinite; /* Safari */
+  	animation: spin .5s linear infinite;
 }
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* End login & register page */
 
 /* Nav */
@@ -209,9 +231,17 @@ main {
 
 /* Profile page */
 
-.userData-container input {
+.userData-container input, .requirements-container input {
 	display: block;
 	margin-bottom: 15px;
 }
 
+.save-error-message {
+	display: none;
+	color: red;
+}
+
+.showError {
+	display: block;
+}
 /* End profile page */

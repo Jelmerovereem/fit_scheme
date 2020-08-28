@@ -9,14 +9,33 @@
 	<%- include("partials/nav") %>
 	<main>
 		<p>Naam: <%= userData.name %></p>
-		<form action="/updateUserData" method="POST">
+		<form>
 			<div class="userData-container">
 				<label for="length">Lengte:</label>
 				<input type="text" id="length" placeholder="<%= userData.length %>CM" disabled>
 				<label for="age">Leeftijd:</label>
-				<input type="number" id="age" placeholder="<%= userData.age %>" disabled>
+				<input type="number" min="0" id="age" placeholder="<%= userData.age %>" disabled>
+				<label for="weight">Gewicht:</label>
+				<input type="number" min="0" id="weight" placeholder="<%= userData.weight %>" disabled>
+			</div>
+		</form>
+		<h2>Dagelijkse caloriebehoefte</h2>
+		<p>Tip: reken dit uit via de <a href="https://cleannutrition.nl/caloriebehoefte-berekenen/" target="_blank">caloriebehoefte calculator</a>!</p>
+		<form>
+			<div class="requirements-container">
+				<label for="calories">Caloriebehoefte</label>
+				<input type="number" min="0" id="calories" name="calories" value="<%= userData.requirements.calories %>">
+				<label for="protein">Eiwitten (g)</label>
+				<input type="number" min="0" id="protein" name="protein" value="<%= userData.requirements.protein %>">
+				<label for="fats">Vetten (g)</label>
+				<input type="number" min="0" id="fats" name="fats" value="<%= userData.requirements.fats %>">
+				<label for="carbohydrates">Koolhydraten (g)</label>
+				<input type="number" min="0" id="carbohydrates" name="carbohydrates" value="<%= userData.requirements.carbohydrates %>">
+				<a href="javascript:void(0)" class="requirementsSave btn">Opslaan</a>
+				<p class="save-error-message">Opslaan is niet gelukt, probeer het nog eens of neem contact met ons op.</p>
 			</div>
 		</form>
 	</main>
+	<script src="scripts/profile.js"></script>
 </body>
 </html>

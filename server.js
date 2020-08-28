@@ -15,6 +15,8 @@ const app = express();
 
 const session = require("express-session");
 
+const argon2 = require("argon2");
+
 app.use(session({
 	secret: process.env.SESSION_SECRET,
 	resave: false,
@@ -31,6 +33,7 @@ app.get("/register", renderRegister);
 app.get("/profile", renderProfile);
 app.post("/postLogin", postLogin);
 app.post("/postRegister", createUser);
+app.post("/updateRequirements", updateRequirements);
 app.post("/signout", signOut);
 
 let db = null;
@@ -65,14 +68,14 @@ function renderLogin(req, res) {
 };
 
 function postLogin(req, res) {
-	let users = db.collection("FitScheme").findOne({email: req.body.email}, (err, data) => {
+	let users = db.collection("FitScheme").findOne({email: req.body.email}, async (err, data) => {
 		if (err) {
 			console.log(err);
 		} else {
 			if (data == null) {
 				res.setHeader("Content-Type", "application/json");
 				res.send({userFound: false});
-			} else if (data.password === req.body.password) {
+			} else if (await argon2.verify(data.password, req.body.password)) {
 				req.session.user = data;
 				res.setHeader("Content-Type", "application/json");
 				res.send({password: true});
@@ -88,14 +91,30 @@ function renderRegister(req, res) {
 	res.render("register.ejs");
 };
 
-function createUser(req, res) {
+async function createUser(req, res) {
 	console.log(req.body);
+	let hash = await argon2.hash(req.body.password);
+	let userData = {
+		email: req.body.email,
+		name: req.body.name,
+		length: req.body.length,
+		age: req.body.age,
+		weight: req.body.weight,
+		password: hash,
+		requirements: {
+			calories: 0,
+			protein: 0,
+			fats: 0,
+			carbohydrates: 0
+		},
+		dailyData: []
+	};
 	let users = db.collection("FitScheme").findOne({email: req.body.email}, (err, data) => {
 		if (err) {
 			console.log(err)
 		} else {
 			if (data == null) {
-					db.collection("FitScheme").insertOne(req.body, (err) => {
+					db.collection("FitScheme").insertOne(userData, (err) => {
 						if (err) {
 							console.log(err);
 						} else {
@@ -119,7 +138,18 @@ function renderProfile(req, res) {
 			err ? console.log(err) : res.render("profile.ejs", {userData: data});
 		});
 	}
-}
+};
+
+function updateRequirements(req, res) {
+	db.collection("FitScheme").updateOne({email: req.session.user.email}, {$set: {requirements: req.body}}, (err) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.setHeader("Content-Type", "application/json");
+			res.send(JSON.stringify({succeeded: true}));
+		}
+	})
+};
 
 function signOut(req, res) {
 	req.session.destroy((err) => {
