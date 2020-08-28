@@ -15,7 +15,8 @@ const app = express();
 
 const session = require("express-session");
 
-const argon2 = require("argon2");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 app.use(session({
 	secret: process.env.SESSION_SECRET,
@@ -72,16 +73,24 @@ function postLogin(req, res) {
 		if (err) {
 			console.log(err);
 		} else {
+			/*async function comparePass(plainPass, hashedPass) {
+
+			}*/
 			if (data == null) {
 				res.setHeader("Content-Type", "application/json");
 				res.send({userFound: false});
-			} else if (await argon2.verify(data.password, req.body.password)) {
-				req.session.user = data;
-				res.setHeader("Content-Type", "application/json");
-				res.send({password: true});
 			} else {
-				res.setHeader("Content-Type", "application/json");
-				res.send({password: false});
+				await bcrypt.compare(req.body.password, data.password, (err, result) => {
+					if (result) {
+						console.log(result);
+						req.session.user = data;
+						res.setHeader("Content-Type", "application/json");
+						res.send({password: true});
+					} else {
+						res.setHeader("Content-Type", "application/json");
+						res.send({password: false});
+					}
+				})
 			}
 		}
 	})
@@ -92,15 +101,23 @@ function renderRegister(req, res) {
 };
 
 async function createUser(req, res) {
-	console.log(req.body);
-	let hash = await argon2.hash(req.body.password);
+	let hashedPass = "";
+	await bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(hash);
+			hashedPass = hash;
+		}
+	});
+	console.log(hashedPass);
 	let userData = {
 		email: req.body.email,
 		name: req.body.name,
 		length: req.body.length,
 		age: req.body.age,
 		weight: req.body.weight,
-		password: hash,
+		password: hashedPass,
 		requirements: {
 			calories: 0,
 			protein: 0,
