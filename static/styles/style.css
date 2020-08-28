@@ -14,6 +14,10 @@ body {
 	background-size: cover;
 }
 
+main {
+	padding: 10px;
+}
+
 /* Mobile design */
 
 /* Login & register page */
@@ -202,3 +206,12 @@ body {
 }
 
 /* End nav */
+
+/* Profile page */
+
+.userData-container input {
+	display: block;
+	margin-bottom: 15px;
+}
+
+/* End profile page */

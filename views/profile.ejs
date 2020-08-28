@@ -7,6 +7,16 @@
 </head>
 <body>
 	<%- include("partials/nav") %>
-	<%= userData.name %>
+	<main>
+		<p>Naam: <%= userData.name %></p>
+		<form action="/updateUserData" method="POST">
+			<div class="userData-container">
+				<label for="length">Lengte:</label>
+				<input type="text" id="length" placeholder="<%= userData.length %>CM" disabled>
+				<label for="age">Leeftijd:</label>
+				<input type="number" id="age" placeholder="<%= userData.age %>" disabled>
+			</div>
+		</form>
+	</main>
 </body>
 </html>
