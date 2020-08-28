@@ -82,7 +82,6 @@ function postLogin(req, res) {
 			} else {
 				await bcrypt.compare(req.body.password, data.password, (err, result) => {
 					if (result) {
-						console.log(result);
 						req.session.user = data;
 						res.setHeader("Content-Type", "application/json");
 						res.send({password: true});
@@ -101,50 +100,47 @@ function renderRegister(req, res) {
 };
 
 async function createUser(req, res) {
-	let hashedPass = "";
 	await bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log(hash);
-			hashedPass = hash;
+			let userData = {
+				email: req.body.email,
+				name: req.body.name,
+				length: req.body.length,
+				age: req.body.age,
+				weight: req.body.weight,
+				password: hash,
+				requirements: {
+					calories: 0,
+					protein: 0,
+					fats: 0,
+					carbohydrates: 0
+				},
+				dailyData: []
+			};
+			let users = db.collection("FitScheme").findOne({email: req.body.email}, (err, data) => {
+				if (err) {
+					console.log(err)
+				} else {
+					if (data == null) {
+							db.collection("FitScheme").insertOne(userData, (err) => {
+								if (err) {
+									console.log(err);
+								} else {
+									req.session.user = req.body;
+									res.setHeader('Content-Type', 'application/json');
+									res.send(JSON.stringify({responseText: "Gelukt, inloggeeeh"}))
+								}
+							});
+					} else {
+						res.send(JSON.stringify({responseText: "email bestaat al", exists: true}))
+					}
+				}
+			})			
 		}
 	});
-	console.log(hashedPass);
-	let userData = {
-		email: req.body.email,
-		name: req.body.name,
-		length: req.body.length,
-		age: req.body.age,
-		weight: req.body.weight,
-		password: hashedPass,
-		requirements: {
-			calories: 0,
-			protein: 0,
-			fats: 0,
-			carbohydrates: 0
-		},
-		dailyData: []
-	};
-	let users = db.collection("FitScheme").findOne({email: req.body.email}, (err, data) => {
-		if (err) {
-			console.log(err)
-		} else {
-			if (data == null) {
-					db.collection("FitScheme").insertOne(userData, (err) => {
-						if (err) {
-							console.log(err);
-						} else {
-							req.session.user = req.body;
-							res.setHeader('Content-Type', 'application/json');
-							res.send(JSON.stringify({responseText: "Gelukt, inloggeeeh"}))
-						}
-					});
-			} else {
-				res.send(JSON.stringify({responseText: "email bestaat al", exists: true}))
-			}
-		}
-	})
+
 };
 
 function renderProfile(req, res) {
