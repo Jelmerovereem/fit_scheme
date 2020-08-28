@@ -5,7 +5,13 @@
 
 body {
 	font-family: poppins;
-	height: 1920px;
+	overflow: hidden;
+	height: 100vh;
+}
+
+.background-image {
+	background: url(../assets/bgv2.jpg) center center no-repeat;
+	background-size: cover;
 }
 
 /* Mobile design */
@@ -13,13 +19,7 @@ body {
 /* Login & register page */
 .login-container {
 	position: relative;
-	overflow: hidden;
 	height: 100%;
-}
-
-.background-image {
-	height: 100%;
-	z-index: 1;
 }
 
 .login-modal {
