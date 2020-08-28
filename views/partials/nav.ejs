@@ -1,0 +1,19 @@
+<nav class="navbar">
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li class="user-icon"><%- include("../../static/assets/user.svg") %></li>
+		<div class="dropdown-list">
+			<ul>
+				<li><a href="/profile">Mijn gegevens</a></li>
+				<li>
+					<form action="/signout" method="POST" class="logout-form">
+						<div class="logout-container">
+							<%- include("../../static/assets/logout.svg") %><span>Log uit</span>
+						</div>
+					</form>
+			</li>
+			</ul>
+		</div>
+	</ul>
+</nav>
+<script src="scripts/nav.js"></script>

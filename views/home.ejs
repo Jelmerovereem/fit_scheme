@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+	<meta charset="UTF-8">
+	<title>Dashboard FitScheme</title>
+	<%- include("partials/head") %>
+</head>
+<body>
+	<%- include("partials/nav") %>
+	<p><%= data.name %></p>
+	<p>Mijn gegevens:</p>
+	<p>Leeftijd: <%= data.age %></p>
+	<p>Lengte: <%= data.length %> CM</p>
+	<p>Gewicht: <%= data.weight %> KG</p>
+	<h2 style="margin: 20px 0 5px 0;">Dit heb je nodig:</h2>
+	<p>2002 Caloriebehoefte</p>
+	<p>150 Eiwitten (g)</p>
+	<p>48 Vetten (g)</p>
+	<p>243 Koolhydraten (g)</p>
+</body>
+</html>

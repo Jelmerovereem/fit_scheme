@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+	<meta charset="UTF-8">
+	<title>Login - FitScheme</title>
+	<%- include("partials/head") %>
+</head>
+<body>
+	<div class="login-container">
+		<img src="assets/bg-landscape.jpg" alt="" class="background-image">
+		<form action="/postLogin">
+			<div class="login-modal">
+				<div class="input-group">
+					<input type="email" id="loginField" class="login input-field" name="emailAddress" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label for="loginField" class="login label" id="email-label">E-mail adres</label>
+					<p class="error-message user-not-found">Kan je account niet vinden.</p>
+				</div>
+				<div class="input-group">
+					<input type="password" id="passField" class="login input-field" name="password" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label for="passField" class="login label">Wachtwoord</label>
+					<p class="error-message password-wrong">Wachtwoord onjuist. Probeer het opnieuw. Of contact ons om je wachtwoord te resetten.</p>
+				</div>
+				<a href="javascript:void(0)" class="login btn">Login</a>
+				<p>Nog geen account, registreer <a href="/register">hier.</a></p>
+			</div>
+		</form>
+	</div>
+	<script src="scripts/login.js"></script>
+</body>
+</html>

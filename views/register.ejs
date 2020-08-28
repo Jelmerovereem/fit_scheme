@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+	<meta charset="UTF-8">
+	<title>Registreren FitScheme</title>
+	<%- include("partials/head") %>
+</head>
+<body>
+	<div class="login-container">
+		<img src="assets/bg-landscape.jpg" alt="" class="background-image">
+		<form action="/postRegister">
+			<div class="login-modal">
+				<p style="display: none;" class="email-exists-message">Bij dit emailadres is al een account gekoppeld. <a href="/login">Login</a></p>
+				<div class="input-group">
+					<input type="email" id="loginField" class="login input-field" name="emailAddress" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label for="loginField" class="login label">E-mail adres</label>
+				</div>
+				<div class="input-group">
+					<input type="text" id="fullName" class="login input-field" name="fullName" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label for="fullName" class="login label">Naam</label>
+				</div>
+				<div class="input-group">
+					<input type="text" id="length" class="login input-field" name="length" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label for="length" class="login label">Lengte</label>
+				</div>
+				<div class="input-group">
+					<input type="number" id="age" class="login input-field" name="age" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label for="age" class="login label">Leeftijd</label>
+				</div>
+				<div class="input-group">
+					<input type="number" id="weight" class="login input-field" name="weight" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label for="weight" class="login label">Gewicht</label>
+				</div>
+				<div class="input-group">
+					<input type="password" id="passField" class="login input-field" name="password" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label for="passField" class="login label">Wachtwoord</label>
+				</div>
+				<a href="javascript:void(0)" class="login register btn">Registreer</a>
+				<p>Al een account? <a href="/">Login hier.</a></p>
+			</div>
+		</form>
+	</div>
+	<script src="scripts/register.js"></script>
+</body>
+</html>

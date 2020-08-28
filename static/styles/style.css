@@ -1,0 +1,199 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: poppins;
+}
+
+/* Mobile design */
+
+/* Login & register page */
+.login-container {
+	position: relative;
+}
+
+.background-image {
+	width:;
+	height: 100vh;
+}
+
+.login-modal {
+	position: absolute;
+	z-index: 2;
+	top: 25%;
+	left: 50%;
+	background: white;
+	padding: 20px;
+}
+
+.input-group {
+	position: relative;
+	margin: 40px 0 20px;
+}
+
+.login.input-field {
+	font-size: 18px
+	display: block;
+	padding: 10px 10px 10px 5px;
+	width: 300px;
+	border: none;
+	border-bottom: 1px solid #757575;
+}
+
+.login.input-field:focus {
+	outline: none;
+}
+
+
+.login.label {
+	color: #999;
+	font-size: 18px;
+	font-weight: normal;
+	position: absolute;
+	pointer-events: none;
+	left: 5px;
+	top: 10px;
+	transition: 0.2s ease all;
+}
+
+.login.input-field:focus ~ .login.label,
+.login.input-field:valid ~ .login.label {
+	top: -20px;
+	color: #4285f4;
+	font-size: 14px;
+}
+
+.bar {
+	position: relative;
+	display: block;
+	width: 315px;
+}
+
+.bar:before,
+.bar:after {
+	content: '';
+	height: 2px;
+	width: 0;
+	bottom: 1px;
+	position: absolute;
+	background: #4285f4;
+	transition: 0.2s ease all;
+}
+
+.bar:before {
+	left: 50%;
+}
+
+.bar:after {
+	right: 50%;
+}
+
+.login.input-field:focus ~ .bar:before,
+.login.input-field:focus ~ .bar:after {
+	width: 50%;
+}
+
+.highlight {
+	position: absolute;
+	height: 60%;
+	width: 100px;
+	top: 25%;
+	left: 0;
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.login.input-field:focus ~ .highlight {
+	animation: inputHighlighter 0.3 ease;
+}
+
+@keyframes inputHighlighter {
+	from {background: #4285f4;}
+	to {width: 0; background: transparent;}
+}
+
+.error-message {
+	display: none;
+}
+
+.show-error {
+	display: block;
+	color: red;
+}
+
+.login.btn {
+	color: white;
+	background: #4285f4;
+	padding: 10px 20px;
+	text-decoration: none;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+/* End login & register page */
+
+/* Nav */
+
+.navbar {
+	background-color: #4285f4;
+	color: white;
+	height: 50px;
+}
+
+.navbar>ul {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.navbar ul {
+	list-style-type: none;
+	height: 100%;
+}
+
+.navbar a {
+	color: white;
+	text-decoration: none;
+}
+
+.user-icon {
+	margin-right: 30px;
+}
+
+.dropdown-list {
+	display: none;
+	height: 200px;
+	min-width: 60px;
+	background: white;
+	padding: 20px;
+	position: absolute;
+	right: 25px;
+	top: 50px;
+	z-index: 2;
+	border: 1px solid rgba(0,0,0,.15);
+	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.dropdown-list a, .dropdown-list span {
+	color: black;
+}
+
+.showDropDown {
+	display: block;
+}
+
+.dropdown-list>ul>li {
+	margin-bottom: 10px;
+}
+
+.logout-container {
+	display: flex;
+	align-items: center;
+}
+
+.logout-icon {
+	margin-right: 5px;
+}
+
+/* End nav */
