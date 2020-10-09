@@ -54,8 +54,9 @@ function renderHome(req, res) {
 	if (!req.session.user) {
 		res.redirect("/login");
 	} else {
-		res.render("home.ejs", {
-			data: req.session.user
+		console.log(req.session.user);
+		db.collection("fitscheme").findOne({email: req.session.user.email}, (err, data) => {
+			err ? console.log(err) : res.render("home.ejs", {userData: data});
 		});
 	}
 }
@@ -69,7 +70,7 @@ function renderLogin(req, res) {
 };
 
 function postLogin(req, res) {
-	let users = db.collection("FitScheme").findOne({email: req.body.email}, async (err, data) => {
+	let users = db.collection("fitscheme").findOne({email: req.body.email}, async (err, data) => {
 		if (err) {
 			console.log(err);
 		} else {
@@ -119,12 +120,12 @@ async function createUser(req, res) {
 				},
 				dailyData: []
 			};
-			let users = db.collection("FitScheme").findOne({email: req.body.email}, (err, data) => {
+			let users = db.collection("fitscheme").findOne({email: req.body.email}, (err, data) => {
 				if (err) {
 					console.log(err)
 				} else {
 					if (data == null) {
-							db.collection("FitScheme").insertOne(userData, (err) => {
+							db.collection("fitscheme").insertOne(userData, (err) => {
 								if (err) {
 									console.log(err);
 								} else {
@@ -147,14 +148,14 @@ function renderProfile(req, res) {
 	if (!req.session.user) {
 		res.redirect("/login");
 	} else {
-		db.collection("FitScheme").findOne({email: req.session.user.email}, (err, data) => {
+		db.collection("fitscheme").findOne({email: req.session.user.email}, (err, data) => {
 			err ? console.log(err) : res.render("profile.ejs", {userData: data});
 		});
 	}
 };
 
 function updateRequirements(req, res) {
-	db.collection("FitScheme").updateOne({email: req.session.user.email}, {$set: {requirements: req.body}}, (err) => {
+	db.collection("fitscheme").updateOne({email: req.session.user.email}, {$set: {requirements: req.body}}, (err) => {
 		if (err) {
 			console.log(err);
 		} else {

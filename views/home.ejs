@@ -8,7 +8,26 @@
 <body>
 	<%- include("partials/nav") %>
 	<main>
-		<h2>Calenderr</h2>
+		<h2><%= userData.name %>'s dashboard</h2>
+		<%if (userData.dailyData.length == 0) { %>
+			<div class="empty-state-container">
+				<img src="assets/sad_dumbbell.png" alt="">
+				<p>Nog geen data gevonden, maar dat is geen probleem! Ga nu meteen aan de start!</p>
+				<a href="javascript:void(0)" class="primary-btn open-add-container">Voeg voeding toe</a>
+			</div>
+		<% } else { %>
+			<p> is vol</p>
+		<% } %>
+		<div class="add-food">
+			<span class="close">&times;</span>
+			<label for="datetime">Datum en tijd</label>
+			<input type="datetime-local" id="datetime">
+
+			<label for="dishInput">Gerecht / product</label>
+			<input type="text" id="dishInput" class="productInput">
+			<a href="javascript:void(0)" class="primary-btn search-product">Zoek product</a>
+		</div>
 	</main>
+	<script src="scripts/home.js"></script>
 </body>
 </html>
