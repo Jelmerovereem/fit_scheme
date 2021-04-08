@@ -50,6 +50,8 @@ mongo.MongoClient.connect(url, (err, client) => {
 	db = client.db(process.env.DB_NAME);
 });
 
+console.log(new Date())
+
 function renderHome(req, res) {
 	if (!req.session.user) {
 		res.redirect("/login");
